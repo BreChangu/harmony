@@ -1,23 +1,98 @@
 <button 
   class="fab-booking" 
-  [class.hidden]="isOpen()"
-  (click)="toggleBooking()">
+  [class.hidden]="ui.isBookingOpen()"
+  (click)="ui.toggleBooking()">
   <span class="icon">📅</span>
   <span class="text">Agendar</span>
 </button>
 
-<div class="booking-backdrop" [class.open]="isOpen()" (click)="toggleBooking()"></div>
+<div class="booking-backdrop" 
+     [class.open]="ui.isBookingOpen()" 
+     (click)="ui.toggleBooking()">
+</div>
 
-<div class="booking-panel" [class.open]="isOpen()">
+<div class="booking-panel" [class.open]="ui.isBookingOpen()">
   
   <div class="wizard-container">
     
     <div class="wizard-header">
       <button *ngIf="currentStep() > 1" class="btn-icon-back" (click)="prevStep()">←</button>
-      
-      <button class="close-panel-btn" (click)="toggleBooking()">×</button>
+      <h3 class="step-title">
+        {{ currentStep() === 1 ? 'Elige tu Ritual' : 
+           currentStep() === 2 ? selection.category : 
+           currentStep() === 3 ? 'Fecha y Hora' : 'Confirmación' }}
+      </h3>
+      <button class="close-panel-btn" (click)="ui.toggleBooking()">✕</button>
     </div>
 
-    </div>
+    <div class="wizard-body">
 
+    <div *ngIf="currentStep() === 1" class="category-list">
+        
+        <div *ngFor="let cat of services" 
+             class="category-card" 
+             [style.background-image]="'url(' + cat.image + ')'"
+             (click)="selectCategory(cat.name)">
+          
+          <div class="card-overlay"></div>
+          
+          <div class="card-content">
+            <span class="card-title">{{ cat.name }}</span>
+            <span class="card-arrow">Explore ↗</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div *ngIf="currentStep() === 2" class="list-options">
+        <div *ngFor="let item of currentServiceList" class="list-item" (click)="selectService(item)">
+          <div class="item-info">
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-meta">{{ item.duration }} min</span>
+          </div>
+          <span class="item-price">${{ item.price }}</span>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep() === 3" class="form-step">
+        <label>Selecciona Fecha</label>
+        <input type="date" [(ngModel)]="selection.date" class="input-aesthetic">
+        
+        <label>Horario Disponible</label>
+        <div class="tags-container">
+          <span *ngFor="let time of timeSlots" 
+                class="time-tag" 
+                [class.selected]="selection.time === time"
+                (click)="selectTime(time)">
+            {{ time }}
+          </span>
+        </div>
+
+        <button class="btn-primary full-width" 
+                [disabled]="!selection.date || !selection.time"
+                (click)="nextStep()">
+          Siguiente
+        </button>
+      </div>
+
+      <div *ngIf="currentStep() === 4" class="summary-step">
+        <div class="summary-card">
+          <h4>Resumen</h4>
+          <p><strong>Servicio:</strong> {{ selection.category }} - {{ selection.serviceName }}</p>
+          <p><strong>Fecha:</strong> {{ selection.date }} a las {{ selection.time }}</p>
+          <p><strong>Total Estimado:</strong> ${{ selection.price }}</p>
+        </div>
+
+        <label>Tu Nombre</label>
+        <input type="text" [(ngModel)]="selection.name" placeholder="Escribe tu nombre..." class="input-aesthetic">
+
+        <button class="btn-whatsapp full-width" 
+                [disabled]="!selection.name"
+                (click)="finalizeBooking()">
+          Confirmar por WhatsApp 💬
+        </button>
+      </div>
+
+    </div> </div>
 </div>

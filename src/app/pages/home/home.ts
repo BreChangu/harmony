@@ -1,6 +1,7 @@
 import { Component, inject, signal,HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiService } from '../../services/ui';
+
 @Component({
   selector: 'app-home',
   standalone: true,

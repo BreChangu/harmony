@@ -5,17 +5,34 @@ import { Injectable, signal } from '@angular/core';
 })
 export class UiService {
   
-  // Esta señal controla si el Booking está visible o no
+  // Estado del panel de Booking
   isBookingOpen = signal(false);
+
+  // Estado del panel de Servicios (si lo estás usando)
+  isServicePanelOpen = signal(false);
+  selectedService = signal<string | null>(null);
+
+  constructor() { }
 
   toggleBooking() {
     this.isBookingOpen.update(v => !v);
     
-    // Bloqueo de scroll para que el fondo no se mueva al abrir el panel
+    // Bloquear scroll cuando se abre
     if (this.isBookingOpen()) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
+  }
+
+  // Métodos para servicios (opcionales si usas el panel de detalles)
+  openServiceDetails(serviceName: string) {
+    this.selectedService.set(serviceName);
+    this.isServicePanelOpen.set(true);
+  }
+
+  closeServiceDetails() {
+    this.isServicePanelOpen.set(false);
+    this.selectedService.set(null);
   }
 }

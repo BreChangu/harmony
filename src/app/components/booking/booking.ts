@@ -1,35 +1,26 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, inject } from '@angular/core'; // <--- 1. AGREGAR 'inject'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import{ UiService } from '../../services/ui';
+import { UiService } from '../../services/ui'; // Asegúrate que la ruta sea correcta
+
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule, FormsModule,],
-  templateUrl: './booking.html', // Asegúrate que se llame booking.component.html
-  styleUrls: ['./booking.css']   // Asegúrate que se llame booking.component.css
+  imports: [CommonModule, FormsModule],
+  templateUrl: './booking.html',
+  styleUrls: ['./booking.css']
 })
 export class BookingComponent {
   
-  // --- 1. LÓGICA DE VISIBILIDAD (NUEVO) ---
-  // Esto controla si el panel lateral está abierto o cerrado
-  isOpen = signal(false);
+  // --- CORRECCIÓN CLAVE ---
+  // Inyectamos el servicio como 'public' para que el HTML pueda acceder a él (ui.isBookingOpen)
+  public ui = inject(UiService); 
 
-  toggleBooking() {
-    this.isOpen.update(v => !v);
-    
-    // Bloqueamos el scroll del cuerpo para que no se mueva la página de fondo
-    if (this.isOpen()) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-  }
 
-  // --- 2. LÓGICA DEL WIZARD (Lo que ya tenías) ---
+
+  // --- 2. LÓGICA DEL WIZARD (Esto se queda igual) ---
   currentStep = signal(1);
   
-  // Datos de la selección
   selection = {
     category: '',
     serviceName: '',
@@ -40,12 +31,12 @@ export class BookingComponent {
     name: ''
   };
 
-  // Catálogo de Servicios
-  services = [
+services = [
     {
       id: 'lashes',
       name: 'Lashes',
-      icon: '👁️',
+      // Usamos la misma ruta que en tu Hero
+      image: './lashes.jpg', 
       items: [
         { name: 'Clásicas (1x1)', duration: 90, price: 800 },
         { name: 'Híbridas', duration: 120, price: 950 },
@@ -56,7 +47,8 @@ export class BookingComponent {
     {
       id: 'nails',
       name: 'Nails',
-      icon: '💅',
+      // Ruta del Hero
+      image: './nails.jpg', 
       items: [
         { name: 'Gelish Manos', duration: 45, price: 250 },
         { name: 'Esculturales', duration: 120, price: 650 },
@@ -66,7 +58,8 @@ export class BookingComponent {
     {
       id: 'hair',
       name: 'Hair',
-      icon: '💇‍♀️',
+      // Ruta del Hero
+      image: './hair.jpg', 
       items: [
         { name: 'Corte & Estilo', duration: 60, price: 500 },
         { name: 'Tinte Completo', duration: 120, price: 1500 },
@@ -75,14 +68,12 @@ export class BookingComponent {
     }
   ];
 
-  // Horarios Disponibles
   timeSlots: string[] = [
     '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
     '12:00 PM', '12:30 PM', '01:00 PM', '02:00 PM',
     '03:00 PM', '04:00 PM', '05:00 PM', '06:00 PM', '07:00 PM'
   ];
 
-  // Getter inteligente
   get currentServiceList() {
     return this.services.find(s => s.name === this.selection.category)?.items || [];
   }
@@ -115,9 +106,9 @@ export class BookingComponent {
     this.currentStep.update(v => Math.max(v - 1, 1));
   }
 
-  // --- CIERRE (WhatsApp) ---
+  // --- CIERRE ---
   finalizeBooking() {
-    const phone = '525512345678'; // ¡Recuerda poner el número real aquí!
+    const phone = '525512345678';
     
     const text = `Hola Harmony Bliss ✨, quiero solicitar una cita:
     
@@ -133,7 +124,7 @@ export class BookingComponent {
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
     
-    // Opcional: Cerrar el modal después de enviar
-    // this.toggleBooking(); 
+    // CORRECCIÓN AQUÍ: Usamos el servicio para cerrar
+    this.ui.toggleBooking(); 
   }
 }
