@@ -1,0 +1,59 @@
+/* --- BOTÓN FLOTANTE LATERAL (SIDE TAB) --- */
+.fab-booking {
+  /* Posicionamiento: A la derecha y centrado verticalmente */
+  position: fixed;
+  top: 50%;
+  right: 0;
+  z-index: 900;
+  
+  /* TRANSFORMACIÓN MÁGICA:
+     1. translate(35%, -50%): Lo empuja un poco a la derecha (35%) para pegarlo al borde y lo centra verticalmente (-50%).
+     2. rotate(-90deg): Lo gira para que el texto se lea de abajo hacia arriba.
+  */
+  transform: translate(35%, -50%) rotate(-90deg);
+  transform-origin: center;
+
+  /* Estética Luxury */
+  background: var(--hb-gold); 
+  color: #1a1a1a; /* Texto oscuro sobre dorado para máximo contraste */
+  border: 1px solid rgba(255,255,255,0.2);
+  
+  /* Forma: Pestaña (Redondeada arriba, plana abajo - relativo al texto) */
+  /* Al estar rotado, esto hace que el lado que mira al centro de la pantalla sea redondo */
+  border-radius: 12px 12px 0 0; 
+  
+  padding: 15px 35px; /* Un poco más largo para que se vea bien */
+  
+  /* Flex y Tipografía */
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 700; 
+  text-transform: uppercase; 
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  color: aliceblue;
+  
+  cursor: pointer;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.4); /* Sombra hacia la izquierda */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Efecto Hover: La pestaña "sale" un poco más hacia la izquierda */
+.fab-booking:hover {
+  transform: translate(25%, -50%) rotate(-90deg); /* Sale un 10% más */
+  background: #fff; /* Cambio a blanco para interactividad */
+  box-shadow: -8px 0 25px rgba(196, 154, 69, 0.4);
+  color: #1a1a1a; /* Texto oscuro sobre blanco */}
+
+/* Estado Oculto: Se esconde completamente a la derecha */
+.fab-booking.hidden {
+  transform: translate(150%, -50%) rotate(-90deg); /* Se va fuera de la pantalla */
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Ajuste del Icono para que no se vea chueco */
+.icon { 
+  font-size: 1.1rem; 
+  transform: rotate(90deg); /* Rotamos el icono para que se vea "de pie" si quieres, o déjalo normal */
+}

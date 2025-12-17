@@ -1,0 +1,28 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="nav-container">
+    
+    <a (click)="scrollToSection('inicio')" class="logo cursor-pointer">
+      HARMONY<span class="dot">.</span>
+    </a>
+
+    <ul class="nav-links" [class.active]="isMenuOpen">
+      <li><a (click)="scrollToSection('servicios')">Rituales</a></li>
+      <li><a (click)="scrollToSection('galeria')">Galería</a></li>
+      
+      <li>
+        <button class="nav-cta" (click)="ui.toggleBooking()">
+          Reservar
+        </button>
+      </li>
+    </ul>
+
+    <div class="hamburger" (click)="toggleMenu()" [class.open]="isMenuOpen">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+
+  </div>
+</nav>
+
+<div class="mobile-overlay" *ngIf="isMenuOpen" (click)="toggleMenu()"></div>

@@ -1,0 +1,211 @@
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #0a0a0a; /* Negro suave, no uses #000 puro, es muy duro */
+  color: white;
+}
+/* --- CURSOR PERSONALIZADO --- */
+.immersive-wrapper { cursor: none; /* Ocultamos el mouse normal */ }
+
+.fluid-background {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Se queda atrás */
+  background: #0d0d0d;
+}
+
+.aurora-blob {
+  position: absolute;
+  filter: blur(200px); /* El efecto difuminado clave */
+  opacity: 0.6;
+  border-radius: 50%;
+  animation: float 10s infinite alternate;
+  z-index: -999;
+}
+
+/* Definimos los colores de los blobs */
+.blob-1 {
+  top: 10%;
+  left: 20%;
+  width: 400px;
+  height: 400px;
+  background: #bc757f; /* Un morado profundo */
+}
+
+.blob-2 {
+  bottom: 20%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: #C5A059; /* Tu dorado */
+}
+
+.custom-cursor {
+  position: fixed; top: 0; left: 0;
+  width: 20px; height: 20px;
+  background: white; border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+  mix-blend-mode: difference; /* Invierte el color sobre el fondo (Efecto Lujo) */
+}
+
+/* Cuando pasas sobre un botón o tarjeta */
+.custom-cursor.hovering {
+  width: 80px; height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid white;
+}
+
+/* --- HERO SIMPLIFICADO --- */
+.hero-2026 {
+  height: 80vh; display: flex; align-items: center; justify-content: center;
+  position: relative; text-align: center;
+}
+.mega-headline {
+  font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9;
+  color: white; mix-blend-mode:difference; margin-bottom: 40px;
+}
+
+/* --- GALERÍA ACORDEÓN (INTERACTIVA) --- */
+.interactive-gallery {
+  height: 90vh; /* Ocupa casi toda la pantalla */
+  padding: 50px 20px;
+  background: #0d0d0d;
+  display: flex; flex-direction: column;
+}
+
+.gallery-header { margin-bottom: 20px; text-align: center; color: #666; }
+
+.accordion-container {
+  display: flex; width: 100%; height: 100%;
+  gap: 10px; /* Espacio entre paneles */
+}
+
+/* CADA PANEL */
+.accordion-panel {
+  position: relative;
+  flex: 1; /* Todos empiezan igual de anchos */
+  border-radius: 20px; overflow: hidden;
+  cursor: none; /* Usamos nuestro cursor custom */
+  transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1); /* Animación MUY suave */
+}
+
+/* AL HACER HOVER EN UN PANEL */
+.accordion-panel:hover {
+  flex: 3; /* Este panel crece 3 veces más que los otros */
+}
+
+/* IMAGEN DE FONDO */
+.panel-bg {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  filter: grayscale(100%) brightness(0.6); /* Apagada por defecto */
+  transition: 0.7s; transform: scale(1.05);
+}
+.accordion-panel:hover .panel-bg {
+  filter: grayscale(0%) brightness(0.9); /* A todo color al hover */
+  transform: scale(1);
+}
+
+/* TEXTOS */
+.panel-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 40px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+/* Título Vertical (Estado Normal) */
+.vertical-title {
+  font-family: var(--font-serif); font-size: 2rem; color: #fff;
+  writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);
+  position: absolute; bottom: 40px; left: 50%; translate: -50% 0;
+  transition: 0.4s; opacity: 1;
+  white-space: nowrap;
+}
+
+/* Cuando se expande, ocultamos el título vertical y mostramos detalles */
+.accordion-panel:hover .vertical-title {
+  opacity: 0; bottom: -50px;
+}
+
+/* Detalles Ocultos (Estado Expandido) */
+.hidden-details {
+  opacity: 0; transform: translateY(20px);
+  transition: 0.5s 0.2s; /* Delay para que espere a que se abra */
+  max-width: 400px;
+}
+.accordion-panel:hover .hidden-details {
+  opacity: 1; transform: translateY(0);
+}
+
+.hidden-details h4 { font-size: 3rem; margin: 0; color: var(--hb-gold); font-family: var(--font-serif); }
+.hidden-details p { color: #ccc; margin: 10px 0 20px; line-height: 1.5; }
+
+.btn-line {
+  background: transparent; border: 1px solid rgba(255,255,255,0.3);
+  color: white; padding: 10px 20px; border-radius: 30px;
+  cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+  transition: 0.3s;
+}
+.btn-line:hover { background: white; color: black; }
+
+/* RESPONSIVE (En celular no funciona el hover, los ponemos en columna) */
+@media (max-width: 768px) {
+  .accordion-container { flex-direction: column; }
+  .vertical-title { writing-mode: horizontal-tb; transform: none; left: 20px; bottom: 20px; translate: 0; }
+  .accordion-panel:hover { flex: 2; } /* Crece menos en vertical */
+  .immersive-wrapper { cursor: auto; } /* Regresa el cursor normal */
+  .custom-cursor { display: none; }
+}
+
+.magnetic-btn-gold {
+  position: relative;
+  z-index: 1;
+  
+  /* 1. Tipografía aquí para evitar saltos */
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  
+  /* Estilos base asumiendo diseño luxury */
+  background-color: transparent; /* O el color que tengas */
+  border: 1px solid #C5A059;     /* Borde dorado */
+  color: #C5A059;                /* Texto dorado */
+  padding: 1rem 2rem;            /* Ajusta a tu gusto */
+  cursor: pointer;
+
+  /* 2. Transición suave para entrar Y SALIR */
+  /* El cubic-bezier le da ese toque "elástico" o magnético */
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* ESTADO HOVER (Interacción) */
+.magnetic-btn-gold:hover {
+  z-index: 2;
+  
+  /* 3. Cambio de color para contraste */
+  background-color: #C5A059; 
+  color: #000; /* Texto negro sobre fondo dorado es muy legible */
+
+  /* 4. Escala correcta y sutil */
+  /* 1.05 es un crecimiento del 5%, elegante. 2 es excesivo. */
+  transform: scale(1.05) translateY(-2px); 
+  
+  /* 5. Un brillo sutil (Glow) eleva la calidad */
+  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2); 
+}
+
+/* Opcional: Efecto de click activo */
+.magnetic-btn-gold:active {
+  transform: scale(0.98); /* Se encoge un poquito al hacer clic */
+}

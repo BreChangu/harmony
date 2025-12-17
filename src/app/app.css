@@ -1,0 +1,153 @@
+/* --- CONTENEDOR INMERSIVO GLOBAL --- */
+.immersive-wrapper {
+  position: relative;
+  background-color: var(--hb-bg-main); /* Negro fondo */
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* --- FONDO FLUIDO (Aurora Dorada) --- */
+.fluid-background {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  filter: blur(120px); /* Difumina los blobs para crear luces suaves */
+}
+
+/* Los "blobs" de luz que se mueven */
+.aurora-blob {
+  position: absolute; border-radius: 50%;
+  animation: floatLiquid 20s infinite ease-in-out alternate;
+  opacity: 0.4;
+}
+/* Configuramos colores y posiciones distintas */
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--hb-gold-dark); animation-duration: 25s; }
+.blob-2 { bottom: 10%; right: -10%; width: 40vw; height: 40vw; background: #4a3c28; animation-duration: 18s; animation-delay: -5s; }
+.blob-3 { top: 40%; left: 30%; width: 30vw; height: 30vw; background: var(--hb-gold-light); animation-duration: 30s; opacity: 0.2; }
+
+@keyframes floatLiquid {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }
+  100% { transform: translate(-5%, -10%) scale(0.9) rotate(-5deg); }
+}
+
+/* Textura de Grano (Noise) para acabado premium */
+.noise-film {
+  position: absolute; inset: 0; z-index: 1; opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* --- HERO SECTION 2026 --- */
+.hero-2026 {
+  min-height: 90vh; display: flex; flex-direction: column;
+  justify-content: center; padding: 0 5vw; position: relative;
+}
+
+.studio-location {
+  font-family: var(--font-sans); letter-spacing: 6px; font-size: 0.8rem;
+  color: var(--hb-text-muted); margin-bottom: 30px; display: block;
+}
+
+/* Tipografía Gigante */
+.mega-headline {
+  font-family: var(--font-sans);
+  font-size: clamp(4rem, 12vw, 10rem); /* Extremadamente grande y responsivo */
+  line-height: 0.9; color: var(--hb-text-main);
+  font-weight: 800; letter-spacing: -2px;
+  margin-bottom: 60px;
+  /* mix-blend-mode permite que el texto interactúe con el fondo fluido */
+  mix-blend-mode: overlay; 
+}
+.mega-headline .serif { font-family: var(--font-serif); font-weight: 400; }
+.mega-headline .italic { font-style: italic; }
+
+.hero-footer { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+.hero-description { max-width: 400px; font-size: 1.1rem; color: #ccc; }
+
+
+/* --- BOTÓN MAGNÉTICO DORADO --- */
+.magnetic-btn-gold {
+  position: relative;
+  padding: 20px 40px;
+  background: var(--hb-gold-solid);
+  border: none; border-radius: 0; /* Bordes rectos son más moda 2026 */
+  cursor: pointer; overflow: hidden;
+}
+.btn-text {
+  position: relative; z-index: 2;
+  font-family: var(--font-sans); font-weight: 700;
+  text-transform: uppercase; letter-spacing: 2px; color: #000;
+  transition: color 0.4s;
+}
+.btn-ripple {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: #fff; z-index: 1;
+  transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.magnetic-btn-gold:hover .btn-ripple { transform: translateY(0); }
+.magnetic-btn-gold:hover .btn-text { color: var(--hb-gold-solid); }
+
+
+/* --- MANIFIESTO SCROLL (Texto Hueco) --- */
+.manifesto-scroll { padding: 100px 0; overflow: hidden; background: var(--hb-bg-main); }
+.scrolling-text-wrapper {
+  display: flex; white-space: nowrap;
+  transform: rotate(-2deg) scale(1.1); /* Inclinación rebelde */
+}
+.outline-text {
+  font-family: var(--font-sans); font-weight: 900; font-size: 6rem;
+  /* Truco para texto hueco */
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255,255,255,0.1);
+  margin-right: 50px;
+  animation: scrollText 30s linear infinite;
+}
+@keyframes scrollText { to { transform: translateX(-50%); } }
+
+
+/* --- SHOWCASE EDITORIAL (Alternado) --- */
+.editorial-showcase { padding: 150px 5vw; position: relative; z-index: 2; background: var(--hb-bg-main); }
+.showcase-header { margin-bottom: 100px; text-align: center; }
+.showcase-header h3 { font-size: 3rem; margin-bottom: 10px; }
+
+.editorial-item {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; margin-bottom: 150px;
+}
+.reverse-layout { direction: rtl; } /* Invierte el orden para el segundo item */
+.reverse-layout .item-content { direction: ltr; } /* Regresa el texto a normal */
+
+.item-image-container {
+  height: 600px; width: 100%;
+  background-size: cover; background-position: center;
+  filter: grayscale(100%) contrast(1.2); /* Estilo editorial blanco y negro */
+  transition: all 0.6s ease;
+}
+.item-image-container:hover { filter: grayscale(0%); transform: scale(1.02); }
+.img-left { border-radius: 0 200px 0 0; } /* Formas orgánicas */
+.img-right { border-radius: 200px 0 0 0; }
+
+.item-content { padding: 40px; }
+.item-number { font-family: var(--font-serif); font-size: 4rem; color: rgba(255,255,255,0.1); display: block; margin-bottom: -20px; }
+.item-content h4 { font-size: 2.5rem; margin-bottom: 20px; color: #fff; }
+.item-content p { font-size: 1.1rem; color: #999; margin-bottom: 30px; max-width: 400px; }
+
+.link-gold {
+  background: none; border: none; border-bottom: 1px solid var(--hb-gold);
+  color: var(--hb-gold); font-family: var(--font-sans); text-transform: uppercase;
+  letter-spacing: 2px; padding-bottom: 10px; cursor: pointer; transition: 0.3s;
+}
+.link-gold:hover { padding-right: 20px; color: white; border-color: white; }
+
+/* --- ANIMACIONES DE ENTRADA --- */
+.fade-in-up { opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards cubic-bezier(0.2, 0.8, 0.2, 1); }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .mega-headline { font-size: 5rem; }
+  .hero-footer { flex-direction: column; align-items: flex-start; }
+  .editorial-item { grid-template-columns: 1fr; gap: 40px; }
+  .item-image-container { height: 400px; border-radius: 0; }
+  .reverse-layout { direction: ltr; }
+}

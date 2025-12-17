@@ -1,0 +1,92 @@
+<div class="immersive-wrapper" (mousemove)="onMouseMove($event)">
+
+  <div class="custom-cursor" 
+       [style.left.px]="cursorX()" 
+       [style.top.px]="cursorY()"
+       [class.hovering]="isHovering()">
+  </div>
+
+  <section class="hero-2026">
+    <div class="fluid-background">
+      <div class="aurora-blob blob-1"></div>
+      <div class="aurora-blob blob-2"></div>
+      <div class="noise-film"></div>
+    </div>
+
+    <div class="hero-content z-10">
+      <h1 class="mega-headline">
+        Beyond <br>
+        <span class="text-gold-gradient italic">Aesthetics.</span>
+      </h1>
+      
+      <button class="magnetic-btn-gold" 
+              (mouseenter)="setHover(true)" 
+              (mouseleave)="setHover(false)"
+              (click)="ui.toggleBooking()">
+        Reservar Ahora
+      </button>
+    </div>
+  </section>
+
+  <section class="interactive-gallery">
+    <div class="gallery-header">
+      <h2>Nuestros Rituales</h2>
+      <p>Desliza para explorar</p>
+    </div>
+
+    <div class="accordion-container">
+      
+      <div class="accordion-panel" 
+           (mouseenter)="setHover(true)" 
+           (mouseleave)="setHover(false)">
+        
+        <div class="panel-bg" style="background-image: url('/lashes.jpg');"></div>
+        <div class="panel-overlay"></div>
+
+        <div class="panel-content">
+          <h3 class="vertical-title">01 • LASHES</h3>
+          
+          <div class="hidden-details">
+            <h4>Diseño de Mirada</h4>
+            <p>Volumen ruso y efectos híbridos personalizados para la anatomía de tu ojo.</p>
+            <button class="btn-line" (click)="ui.toggleBooking()">Agendar Cita ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel"
+           (mouseenter)="setHover(true)" 
+           (mouseleave)="setHover(false)">
+        <div class="panel-bg" style="background-image: url('assets/imagenes/nails-art.jpg');"></div>
+        <div class="panel-overlay"></div>
+
+        <div class="panel-content">
+          <h3 class="vertical-title">02 • NAILS</h3>
+          <div class="hidden-details">
+            <h4>Nail Architecture</h4>
+            <p>Escultura en gel y acrílico con acabados de alta precisión y limpieza.</p>
+            <button class="btn-line" (click)="ui.toggleBooking()">Agendar Cita ↗</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-panel"
+           (mouseenter)="setHover(true)" 
+           (mouseleave)="setHover(false)">
+        <div class="panel-bg" style="background-image: url('assets/imagenes/hair-art.jpg');"></div>
+        <div class="panel-overlay"></div>
+
+        <div class="panel-content">
+          <h3 class="vertical-title">03 • HAIR</h3>
+          <div class="hidden-details">
+            <h4>Color & Form</h4>
+            <p>Balayage, corrección de color y tratamientos de hidratación profunda.</p>
+            <button class="btn-line" (click)="ui.toggleBooking()">Agendar Cita ↗</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>

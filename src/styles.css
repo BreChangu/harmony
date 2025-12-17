@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* --- PALETA DARK LUXURY --- */
+
+  --gold:var(--font-sans)
+  
+  /* FONDO: Negro Mate Profundo (Elegante, no agresivo) */
+  --hb-bg-main: #121212; 
+  /* TARJETAS: Un gris muy oscuro para separar secciones */
+  --hb-bg-card: #1E1E1E; 
+  
+  /* TEXTO: Blanco Hueso (Para que no canse la vista) */
+  --hb-text-main: #F4F4F4;
+  --hb-text-muted: #A0A0A0;
+
+  /* EL DORADO DEL LOGO (Degradado Cobre/Oro) */
+  /* Usaremos esto para bordes y textos principales */
+  --hb-gold-light: #F2D086;
+  --hb-gold-dark: #9F722D;
+  --hb-gold-solid: #C49A45; 
+
+  /* Tipografía (Mantenemos la elegancia) */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Lato', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--hb-bg-main); /* Fondo oscuro */
+  color: var(--hb-text-main);
+  line-height: 1.6;
+}
+
+/* Títulos Elegantes */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 400; /* Letra fina se ve más cara en fondo negro */
+  letter-spacing: 1px;
+}
+
+/* --- CLASES DE ORO --- */
+
+/* 1. Texto Metálico (Degradado) */
+.text-gold-gradient {
+  background: linear-gradient(45deg, var(--hb-gold-dark), var(--hb-gold-light), var(--hb-gold-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* 2. Bordes Dorados Finos */
+.border-gold {
+  border: 1px solid var(--hb-gold-dark);
+}
+
+/* 3. Botón "Gold Rush" */
+.btn-gold {
+  background: linear-gradient(90deg, #9F722D 0%, #C49A45 100%);
+  color: #000; /* Texto negro sobre dorado es muy legible */
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.btn-gold:hover {
+  filter: brightness(1.2); /* Brilla al pasar el mouse */
+  box-shadow: 0 0 20px rgba(196, 154, 69, 0.4); /* Resplandor dorado */
+}
+
+/* 1. El ancho total de la barra */
+::-webkit-scrollbar {
+  width: 8px; /* Un poco más delgado se ve más elegante */
+}
+
+/* 2. El "riel" o fondo por donde corre la barra */
+::-webkit-scrollbar-track {
+  background: #0a0a0a; /* Fondo muy oscuro (casi negro) */
+}
+
+/* 3. La "manija" (la parte que se mueve) */
+::-webkit-scrollbar-thumb {
+  background-color: #C5A059; /* Un tono dorado mate (tipo Gold) */
+  border-radius: 4px; /* Bordes redondeados */
+  border: 2px solid #0a0a0a; /* Un borde del mismo color del fondo crea un efecto "flotante" */
+}
+
+/* 4. Efecto al pasar el mouse por encima de la manija */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e5c07b; /* Un dorado un poco más brillante */
+}

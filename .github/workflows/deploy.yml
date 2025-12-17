@@ -1,0 +1,37 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # OJO: Si tu rama se llama 'master', cambia esto a 'master'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies 🔧
+        run: npm ci
+
+      - name: Build Angular App 🏗️
+        # OJO 1: Cambia '/harmony/' por el nombre REAL de tu repo entre barras
+        run: npm run build -- --configuration=production --base-href=/harmony/
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          # OJO 2: Revisa tu angular.json para ver dónde sale el build.
+          # En Angular 17+, suele ser 'dist/nombre-proyecto/browser'
+          folder: dist/harmony/browser 
+          branch: gh-pages
