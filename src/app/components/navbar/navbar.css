@@ -139,3 +139,25 @@
     display: flex; /* Se muestra en móvil */
   }
 }
+
+/* estilos hamburguesa */
+.close-btn-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .close-btn-container {
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 1rem;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: var(--gold); /* Tu color dorado */
+    font-size: 2rem;
+    cursor: pointer;
+  }
+}

@@ -95,3 +95,28 @@ h1, h2, h3 {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #e5c07b; /* Un dorado un poco más brillante */
 }
+
+
+/*estilos boton servicio*/
+.magnetic-btn-gold {
+  /* ... tus estilos actuales ... */
+  
+  /* Asegura que se adapte al contenido pero no crezca infinito */
+  width: auto;
+  display: inline-block;
+  
+  /* Un máximo de ancho para que no se vea exagerado en tablets */
+  max-width: 90%; 
+  
+  /* Padding responsivo: más pequeño en móvil */
+  padding: 0.8rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* En pantallas más grandes (tablets/escritorio) */
+@media (min-width: 768px) {
+  .magnetic-btn-gold {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}

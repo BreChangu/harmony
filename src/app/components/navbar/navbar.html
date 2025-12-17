@@ -4,7 +4,10 @@
     <a (click)="scrollToSection('inicio')" class="logo cursor-pointer">
       HARMONY<span class="dot">.</span>
     </a>
-
+                        <li class="close-btn-container">
+    <button class="close-btn" (click)="toggleMenu()">
+      ✕ </button>
+  </li>
     <ul class="nav-links" [class.active]="isMenuOpen">
       <li><a (click)="scrollToSection('servicios')">Rituales</a></li>
       <li><a (click)="scrollToSection('galeria')">Galería</a></li>
