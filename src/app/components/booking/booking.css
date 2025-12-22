@@ -196,3 +196,159 @@
   z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s;
 }
 .booking-backdrop.open { opacity: 1; pointer-events: auto; }
+
+/* --- PASO 3: FECHA Y HORA (ESTILO FINAL) --- */
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Espacio entre secciones */
+}
+
+/* Etiquetas (Labels) */
+label {
+  display: block;
+  font-family: sans-serif;
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+/* Input de Fecha (Dark Mode Style) */
+.input-aesthetic {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05); /* Fondo sutil */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px; /* Un poco redondeado */
+  padding: 15px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  
+  /* Truco para que el calendario nativo sea oscuro en Chrome/Edge */
+  color-scheme: dark; 
+}
+
+.input-aesthetic:focus {
+  border-color: #C5A059;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Icono del calendario (Hacerlo dorado o blanco) */
+.input-aesthetic::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Lo vuelve blanco */
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+/* Contenedor de Horarios (Grid) */
+.tags-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas exactas */
+  gap: 10px;
+  max-height: 250px; /* Si hay muchos, hacemos scroll */
+  overflow-y: auto;
+  padding-right: 5px; /* Espacio para scrollbar */
+}
+
+/* Botones de Hora (Píldoras) */
+.time-tag {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ccc;
+  padding: 10px 5px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-tag:hover {
+  border-color: #C5A059;
+  color: #fff;
+}
+
+/* Estado Seleccionado (Dorado) */
+.time-tag.selected {
+  background: #C5A059;
+  border-color: #C5A059;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+}
+
+/* Scrollbar bonito para los horarios */
+.tags-container::-webkit-scrollbar { width: 4px; }
+.tags-container::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+
+/* =========================================
+   4. INPUT DE FECHA PERSONALIZADO (Lo que faltaba)
+   ========================================= */
+
+.date-group {
+  margin-bottom: 25px;
+}
+
+.date-input-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 15px 20px;
+  
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative; /* Clave para el input absoluto */
+}
+
+/* Efecto Hover */
+.date-input-wrapper:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #C5A059; /* Dorado */
+}
+
+/* Iconos y Texto */
+.calendar-icon {
+  font-size: 1.2rem;
+  filter: grayscale(1); 
+  transition: filter 0.3s;
+}
+
+.date-input-wrapper:hover .calendar-icon {
+  filter: grayscale(0); /* A color al pasar el mouse */
+}
+
+.date-display {
+  flex-grow: 1; /* Ocupa todo el espacio disponible */
+  color: white;
+  font-family: sans-serif;
+  font-size: 1rem;
+}
+
+/* Flecha decorativa */
+.arrow-indicator {
+  color: #C5A059;
+  font-size: 0.8rem;
+}
+
+/* --- EL TRUCO: INPUT INVISIBLE --- */
+/* Esto hace que al dar click en cualquier parte del div,
+   en realidad estés dando click en el input nativo */
+.hidden-date-input {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Totalmente transparente */
+  cursor: pointer;
+  z-index: 10; 
+}

@@ -27,22 +27,18 @@
 
     <div class="wizard-body">
 
-    <div *ngIf="currentStep() === 1" class="category-list">
-        
+      <div *ngIf="currentStep() === 1" class="category-list">
         <div *ngFor="let cat of services" 
              class="category-card" 
              [style.background-image]="'url(' + cat.image + ')'"
              (click)="selectCategory(cat.name)">
           
           <div class="card-overlay"></div>
-          
           <div class="card-content">
             <span class="card-title">{{ cat.name }}</span>
-            <span class="card-arrow">Explore ↗</span>
+            <span class="card-arrow">Explorar ↗</span>
           </div>
-
         </div>
-
       </div>
 
       <div *ngIf="currentStep() === 2" class="list-options">
@@ -56,17 +52,36 @@
       </div>
 
       <div *ngIf="currentStep() === 3" class="form-step">
-        <label>Selecciona Fecha</label>
-        <input type="date" [(ngModel)]="selection.date" class="input-aesthetic">
         
-        <label>Horario Disponible</label>
-        <div class="tags-container">
-          <span *ngFor="let time of timeSlots" 
-                class="time-tag" 
-                [class.selected]="selection.time === time"
-                (click)="selectTime(time)">
-            {{ time }}
-          </span>
+        <div class="date-group">
+          <label>¿Qué día prefieres?</label>
+          
+          <div class="date-input-wrapper" (click)="dateInput.showPicker()">
+            <span class="calendar-icon">📅</span>
+            
+            <span class="date-display">
+              {{ selection.date ? selection.date : 'Toca aquí para elegir fecha' }}
+            </span>
+            
+            <span class="arrow-indicator">▼</span>
+
+            <input type="date" 
+                   #dateInput
+                   [(ngModel)]="selection.date" 
+                   class="hidden-date-input">
+          </div>
+        </div>
+        
+        <div class="time-group">
+          <label>Horario Disponible</label>
+          <div class="tags-container">
+            <span *ngFor="let time of timeSlots" 
+                  class="time-tag" 
+                  [class.selected]="selection.time === time"
+                  (click)="selectTime(time)">
+              {{ time }}
+            </span>
+          </div>
         </div>
 
         <button class="btn-primary full-width" 
@@ -94,5 +109,6 @@
         </button>
       </div>
 
-    </div> </div>
+    </div> 
+  </div>
 </div>
