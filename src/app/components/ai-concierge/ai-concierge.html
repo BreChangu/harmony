@@ -1,0 +1,38 @@
+<button class="ai-bubble" (click)="toggleChat()" [class.hidden]="isOpen()">
+  ✨
+</button>
+
+<div class="chat-window" [class.open]="isOpen()">
+  
+  <div class="chat-header">
+    <div class="ai-avatar">✨</div>
+    <div class="header-info">
+      <h3>Aura AI</h3>
+      <p>Consultora Virtual</p>
+    </div>
+    <button class="close-btn" (click)="toggleChat()">✕</button>
+  </div>
+
+  <div class="chat-body" #scrollContainer>
+    <div *ngFor="let msg of ai.messages()" 
+         class="message" 
+         [class.user]="msg.isUser"
+         [class.bot]="!msg.isUser">
+      <span [innerHTML]="msg.text"></span>
+    </div>
+    
+    <div *ngIf="ai.isLoading()" class="message bot typing">
+      <span>●</span><span>●</span><span>●</span>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" 
+           [(ngModel)]="userInput" 
+           (keyup.enter)="send()"
+           placeholder="Escribe tu duda..." 
+           [disabled]="ai.isLoading()">
+    <button (click)="send()" [disabled]="!userInput.trim()">→</button>
+  </div>
+
+</div>

@@ -1,11 +1,11 @@
 import { Component, inject, signal,HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiService } from '../../services/ui';
-
+import { AiConciergeComponent } from '../../components/ai-concierge/ai-concierge';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AiConciergeComponent],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
